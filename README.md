@@ -1,4 +1,4 @@
-# Stock-Analysis
+# Bull-Investments
 The shittiest stock analysis app ever made...
 <h1>By using this app, you agree to:</h1>
 
