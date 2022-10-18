@@ -121,7 +121,7 @@ export function HeaderMenu({ links }: HeaderSearchProps) {
               </a>
             </Link>
           </Container>
-          <Link href="/login" passHref>
+          <Link href="/auth" passHref>
             <Button component="a">
               Login
             </Button>

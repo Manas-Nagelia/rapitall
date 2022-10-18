@@ -8,6 +8,9 @@ import {
   createStyles,
   MantineProvider,
   Center,
+  Paper,
+  Button,
+  Group,
 } from "@mantine/core";
 import {
   IconGauge,
@@ -97,24 +100,6 @@ const useStyles = createStyles((theme) => ({
       textAlign: "center",
     },
   },
-
-  find: {
-    background: `linear-gradient(90deg, #007cf0 25%, 75%, #00dfd8)`,
-    WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent",
-  },
-
-  analyze: {
-    background: `linear-gradient(90deg, #ff4d4d 25%, 75%, #f9cb28)`,
-    WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent",
-  },
-
-  monitor: {
-    background: `linear-gradient(90deg, #7928ca 25%, 75%, #ff0080)`,
-    WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent",
-  },
 }));
 
 interface FeaturesGridProps {
@@ -131,9 +116,7 @@ export function Features({ description, data = MOCKDATA }: FeaturesGridProps) {
   return (
     <Container className={classes.wrapper}>
       <Title className={classes.title} mt={-20} size={50}>
-        <span className={classes.find}>Find</span>, {" "}
-        <span className={classes.analyze}>Analyze</span>, {" "}
-        <span className={classes.monitor}>Monitor</span>
+        Find, Analyze, Monitor
       </Title>
 
       <Container size={560} p={0}>
@@ -153,6 +136,18 @@ export function Features({ description, data = MOCKDATA }: FeaturesGridProps) {
       >
         {features}
       </SimpleGrid>
+      <Center>
+        <Button
+          mt={75}
+          size="lg"
+          variant="gradient"
+          gradient={{ from: "cyan", to: "teal" }}
+          component="a"
+          href="/auth"
+        >
+          Do more with Bull Investments
+        </Button>
+      </Center>
     </Container>
   );
 }
