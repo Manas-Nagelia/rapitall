@@ -18,8 +18,6 @@ import { GoogleButton, TwitterButton } from "../components/SocialButtons";
 import { useToggle, upperFirst } from "@mantine/hooks";
 import { useForm } from "@mantine/form";
 import Head from "next/head";
-import { useEffect } from "react";
-import * as Realm from "realm-web";
 
 const Auth: NextPage = () => {
   const [type, toggle] = useToggle(["login", "register"]);
@@ -101,30 +99,8 @@ const Auth: NextPage = () => {
 
             <form
               onSubmit={form.onSubmit(async () => {
-                const app = new Realm.App({ id: process.env.NEXT_PUBLIC_REALM_APP_ID! });
-
                 if (type == "register") {
-                  const email = form.values.email;
-                  const password = form.values.password;
-                  const res = await app.emailPasswordAuth.registerUser({
-                    email,
-                    password,
-                  });
-                  console.log(res);
                 } else if (type == "login") {
-                  const credentials = Realm.Credentials.emailPassword(
-                    form.values.email,
-                    form.values.password
-                  );
-                  try {
-                    // Authenticate the user
-                    const user = await app.logIn(credentials);
-                    // `App.currentUser` updates to match the logged in user
-                    console.assert(user.id === app!.currentUser!.id);
-                    console.log(user);
-                  } catch (err) {
-                    console.error("Failed to log in", err);
-                  }
                 }
               })}
             >
