@@ -18,6 +18,7 @@ import { GoogleButton, TwitterButton } from "../components/SocialButtons";
 import { useToggle, upperFirst } from "@mantine/hooks";
 import { useForm } from "@mantine/form";
 import Head from "next/head";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 const Auth: NextPage = () => {
   const [type, toggle] = useToggle(["login", "register"]);
@@ -37,6 +38,8 @@ const Auth: NextPage = () => {
           : null,
     },
   });
+
+  const supabase = useSupabaseClient();
 
   return (
     <>
@@ -100,6 +103,12 @@ const Auth: NextPage = () => {
             <form
               onSubmit={form.onSubmit(async () => {
                 if (type == "register") {
+                  const { data, error } = await supabase.auth.signUp({
+                    email: form.values.email,
+                    password: form.values.password,
+                  });
+
+                  if (error) console.log(error);
                 } else if (type == "login") {
                 }
               })}
