@@ -3,39 +3,57 @@ import Head from "next/head";
 import { HeaderMenu } from "../components/HeaderMenu";
 import { HeroSection } from "../components/HeroSection";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useState, useEffect } from "react";
+import redirect from "nextjs-redirect";
+import { Loader } from "@mantine/core";
 
 const Home: NextPage = () => {
-  const session = useSession();
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<any>(undefined);
+
+  const Redirect = redirect("/");
   const supabase = useSupabaseClient();
 
-  if (!session) {
-    return (
-      <>
-        <Head>
-          <title>Bull Investments</title>
-        </Head>
-        <HeaderMenu
-          links={[
-            {
-              link: "/login",
-              label: "Login",
-            },
-          ]}
-        />{" "}
-        <HeroSection />
-      </>
-    );
+  useEffect(() => {
+    const getUser = async () => {
+      const { data, error } = await supabase.auth.getUser();
+      setUser(data.user);
+      setLoading(false);
+    };
+
+    getUser();
+  }, [supabase]);
+
+  if (loading) {
+    return <Loader variant="dots" />;
   } else {
-    return (
-      <>
-        <Head>
-          <title>Bull Investments</title>
-        </Head>
-        <div>
-          hi
-        </div>
-      </>
-    )
+    if (user == null) {
+      return (
+        <>
+          <Head>
+            <title>Bull Investments</title>
+          </Head>
+          <HeaderMenu
+            links={[
+              {
+                link: "/login",
+                label: "Login",
+              },
+            ]}
+          />{" "}
+          <HeroSection />
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Head>
+            <title>Bull Investments</title>
+          </Head>
+          <div>hi</div>
+        </>
+      );
+    }
   }
 };
 
