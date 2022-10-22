@@ -125,7 +125,7 @@ export function HeroSection() {
           </Container>
 
           <div className={classes.controls}>
-            <Button className={classes.control} variant="white" size="lg" component="a" href="/auth">
+            <Button className={classes.control} variant="white" size="lg" component="a" href="/signup">
               Get started
             </Button>
           </div>

@@ -19,9 +19,9 @@ import { useToggle, upperFirst } from "@mantine/hooks";
 import { useForm } from "@mantine/form";
 import Head from "next/head";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import Link from "next/link";
 
-const Auth: NextPage = () => {
-  const [type, toggle] = useToggle(["login", "register"]);
+const Signup: NextPage = () => {
   const form = useForm({
     initialValues: {
       email: "",
@@ -51,44 +51,25 @@ const Auth: NextPage = () => {
         style={{
           position: "relative",
           top: "50%",
-          transform: type == "register" ? "translateY(3%)" : "translateY(10%)",
+          transform: "translateY(3%)",
         }}
       >
         <Container size={420} my={40}>
           <Paper radius="md" withBorder shadow="md" mt="lg" px={50} py={40}>
-            {type == "register" ? (
-              <>
-                <Title
-                  align="center"
-                  sx={(theme) => ({
-                    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
-                    fontWeight: 900,
-                  })}
-                >
-                  Welcome to Bull Investments
-                </Title>
-                <Text color="dimmed" size="sm" align="center" mt={5}>
-                  Already have an account?{" "}
-                  <Anchor onClick={() => toggle()}>Login</Anchor>
-                </Text>
-              </>
-            ) : (
-              <>
-                <Title
-                  align="center"
-                  sx={(theme) => ({
-                    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
-                    fontWeight: 900,
-                  })}
-                >
-                  Welcome back
-                </Title>
-                <Text color="dimmed" size="sm" align="center" mt={5}>
-                  Do not have an account yet?{" "}
-                  <Anchor onClick={() => toggle()}>Create account</Anchor>
-                </Text>
-              </>
-            )}
+            <>
+              <Title
+                align="center"
+                sx={(theme) => ({
+                  fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+                  fontWeight: 900,
+                })}
+              >
+                Welcome to Bull Investments
+              </Title>
+              <Text color="dimmed" size="sm" align="center" mt={5}>
+                Already have an account? <Link href="/login" passHref><Anchor component="a">Login</Anchor></Link>
+              </Text>
+            </>
             <Group grow mb="md" mt="xl">
               <GoogleButton radius="xl">Google</GoogleButton>
               <TwitterButton radius="xl">Twitter</TwitterButton>
@@ -102,28 +83,23 @@ const Auth: NextPage = () => {
 
             <form
               onSubmit={form.onSubmit(async () => {
-                if (type == "register") {
-                  const { data, error } = await supabase.auth.signUp({
-                    email: form.values.email,
-                    password: form.values.password,
-                  });
+                const { data, error } = await supabase.auth.signUp({
+                  email: form.values.email,
+                  password: form.values.password,
+                });
 
-                  if (error) console.log(error);
-                } else if (type == "login") {
-                }
+                if (error) console.log(error);
               })}
             >
               <Stack>
-                {type === "register" && (
-                  <TextInput
-                    label="First Name"
-                    placeholder="Your first name"
-                    value={form.values.name}
-                    onChange={(event) =>
-                      form.setFieldValue("name", event.currentTarget.value)
-                    }
-                  />
-                )}
+                <TextInput
+                  label="First Name"
+                  placeholder="Your first name"
+                  value={form.values.name}
+                  onChange={(event) =>
+                    form.setFieldValue("name", event.currentTarget.value)
+                  }
+                />
 
                 <TextInput
                   required
@@ -150,16 +126,14 @@ const Auth: NextPage = () => {
                   }
                 />
 
-                {type === "register" && (
-                  <Checkbox
-                    label="I accept terms and conditions"
-                    checked={form.values.terms}
-                    onChange={(event) =>
-                      form.setFieldValue("terms", event.currentTarget.checked)
-                    }
-                  />
-                )}
-                <Button type="submit">{upperFirst(type)}</Button>
+                <Checkbox
+                  label="I accept terms and conditions"
+                  checked={form.values.terms}
+                  onChange={(event) =>
+                    form.setFieldValue("terms", event.currentTarget.checked)
+                  }
+                />
+                <Button type="submit">Sign Up</Button>
               </Stack>
             </form>
           </Paper>
@@ -169,4 +143,4 @@ const Auth: NextPage = () => {
   );
 };
 
-export default Auth;
+export default Signup;
