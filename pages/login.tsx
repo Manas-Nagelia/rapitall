@@ -14,7 +14,11 @@ import {
 } from "@mantine/core";
 import { NextPage } from "next";
 import { useState } from "react";
-import { GoogleButton, TwitterButton } from "../components/SocialButtons";
+import {
+  FacebookButton,
+  GoogleButton,
+  TwitterButton,
+} from "../components/SocialButtons";
 import { useToggle, upperFirst } from "@mantine/hooks";
 import { useForm } from "@mantine/form";
 import Head from "next/head";
@@ -56,25 +60,34 @@ const Login: NextPage = () => {
       >
         <Container size={420} my={40}>
           <Paper radius="md" withBorder shadow="md" mt="lg" px={50} py={40}>
-              <>
-                <Title
-                  align="center"
-                  sx={(theme) => ({
-                    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
-                    fontWeight: 900,
-                  })}
-                >
-                  Welcome back
-                </Title>
-                <Text color="dimmed" size="sm" align="center" mt={5}>
-                  Do not have an account yet?{" "}
-                  <Link href="/signup" passHref><Anchor component="a">Login</Anchor></Link>
-                </Text>
-              </>
+            <>
+              <Title
+                align="center"
+                sx={(theme) => ({
+                  fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+                  fontWeight: 900,
+                })}
+              >
+                Log In
+              </Title>
+              <Text color="dimmed" size="sm" align="center" mt={5}>
+                Do not have an account yet?{" "}
+                <Link href="/signup" passHref>
+                  <Anchor component="a">Create one</Anchor>
+                </Link>
+              </Text>
+            </>
+            {/* Start using this once Google Cloud and OAuth is setup (needs credit card) -> https://supabase.com/docs/guides/auth/auth-google
             <Group grow mb="md" mt="xl">
-              <GoogleButton radius="xl">Google</GoogleButton>
-              <TwitterButton radius="xl">Twitter</TwitterButton>
-            </Group>
+              <GoogleButton
+                radius="xl"
+                onClick={async () => {
+                  
+                }}
+              >
+                Google
+              </GoogleButton>
+            </Group> */}
 
             <Divider
               label="Or continue with email"
@@ -82,11 +95,7 @@ const Login: NextPage = () => {
               my="lg"
             />
 
-            <form
-              onSubmit={form.onSubmit(async () => {
-                
-              })}
-            >
+            <form onSubmit={form.onSubmit(async () => {})}>
               <Stack>
                 <TextInput
                   required

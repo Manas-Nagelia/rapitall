@@ -72,7 +72,6 @@ const Signup: NextPage = () => {
             </>
             <Group grow mb="md" mt="xl">
               <GoogleButton radius="xl">Google</GoogleButton>
-              <TwitterButton radius="xl">Twitter</TwitterButton>
             </Group>
 
             <Divider

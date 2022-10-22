@@ -1,9 +1,12 @@
-import { Button, ButtonProps, Group } from "@mantine/core";
+import { Button, ButtonGroupProps, ButtonProps, Group } from "@mantine/core";
 import { GithubIcon, DiscordIcon, TwitterIcon } from "@mantine/ds";
 import { GoogleIcon } from "./GoogleIcon";
 import { FacebookIcon } from "./FacebookIcon";
+import { MouseEventHandler } from "react";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
-export function GoogleButton(props: ButtonProps) {
+
+export function GoogleButton(props: ButtonProps | { onClick: () => void }) {
   return (
     <Button
       leftIcon={<GoogleIcon />}
@@ -14,7 +17,7 @@ export function GoogleButton(props: ButtonProps) {
   );
 }
 
-export function FacebookButton(props: ButtonProps) {
+export function FacebookButton(props: ButtonProps | { onClick: () => void }) {
   return (
     <Button
       leftIcon={<FacebookIcon />}
@@ -30,7 +33,7 @@ export function FacebookButton(props: ButtonProps) {
   );
 }
 
-export function DiscordButton(props: ButtonProps) {
+export function DiscordButton(props: ButtonProps | { onClick: () => void }) {
   return (
     <Button
       leftIcon={<DiscordIcon size={16} />}
@@ -50,7 +53,7 @@ export function DiscordButton(props: ButtonProps) {
 
 // Twitter button as anchor
 export function TwitterButton(
-  props: ButtonProps & React.ComponentPropsWithoutRef<"a">
+  props: ButtonProps & React.ComponentPropsWithoutRef<"a"> | { onClick: () => void }
 ) {
   return (
     <Button
