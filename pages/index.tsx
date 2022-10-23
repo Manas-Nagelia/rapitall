@@ -6,6 +6,7 @@ import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState, useEffect } from "react";
 import redirect from "nextjs-redirect";
 import { Loader } from "@mantine/core";
+import Loading from "../components/Loading";
 
 const Home: NextPage = () => {
   const [loading, setLoading] = useState(true);
@@ -25,7 +26,7 @@ const Home: NextPage = () => {
   }, [supabase]);
 
   if (loading) {
-    return <Loader variant="dots" />;
+    return <Loading />
   } else {
     if (user == null) {
       return (

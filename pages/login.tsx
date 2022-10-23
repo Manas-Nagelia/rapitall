@@ -20,6 +20,7 @@ import { useSupabaseClient, useSession } from "@supabase/auth-helpers-react";
 import Link from "next/link";
 import Router from "next/router";
 import redirect from "nextjs-redirect";
+import Loading from "../components/Loading";
 
 const Login: NextPage = () => {
   const form = useForm({
@@ -54,7 +55,7 @@ const Login: NextPage = () => {
   }, [supabase]);
 
   if (loading) {
-    return <Loader variant="dots" />;
+    return <Loading />
   } else {
     if (user == null) {
       return (
@@ -159,7 +160,7 @@ const Login: NextPage = () => {
     } else {
       return (
         <Redirect>
-          <Loader variant="dots" />
+          <Loading />
         </Redirect>
       );
     }
